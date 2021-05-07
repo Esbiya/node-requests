@@ -221,7 +221,7 @@ async function downloadTest() {
 |   resp.text  |   响应文本   | 
 |   resp.json()  |   获取标准 json 格式响应   | 
 |   resp.callbackJSON()  |   自动处理 callback({"1": "2"}) 类型数据为标准 json 格式   | 
-|   resp.cost()  |   请求耗时   | 
+|   resp.cost()  |   请求耗时: 毫秒(ms)   | 
 |   resp.setEncoding('gbk')  |  设置响应编码格式  | 
 |   resp.saveFile('test.jpg')  |   响应存入本地文件   |
 |   resp.location()  |   获取重定向地址   |
