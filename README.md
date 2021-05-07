@@ -54,7 +54,7 @@ async function headerTest() {
 async function proxyTest() {
     const resp = (await requests.get("http://127.0.0.1:3000/api/v1/proxy-test", {
         proxy: "http://127.0.0.1:8888",
-		verify: false
+        verify: false
     })).text;
     return resp === "127.0.0.1"
 }
