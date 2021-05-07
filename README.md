@@ -11,13 +11,7 @@
 ## Install
 
 ```sh
-npm install
-```
-
-## Run tests
-
-```sh
-npm run test
+npm install -g @esbiya/requests
 ```
 
 ## Author

@@ -9,6 +9,10 @@ import { Response, ResponseError } from "./response";
 
 export default {utils, types};
 
+export function randomUserAgent(): string {
+    return utils.UserAgents.random();
+}
+
 export var throwResponseError = false;
 
 export function create<T>(uri: string, options?: RequestOptions, content?: any): Request<T> {
