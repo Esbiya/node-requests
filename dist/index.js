@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaults = exports.delete = exports.json = exports.del = exports.head = exports.patch = exports.put = exports.post = exports.get = exports.session = exports.Session = exports.stream = exports.create = exports.throwResponseError = void 0;
+exports.defaults = exports.delete = exports.json = exports.del = exports.head = exports.patch = exports.put = exports.post = exports.get = exports.session = exports.Session = exports.stream = exports.create = exports.throwResponseError = exports.randomUserAgent = void 0;
 var request = require('request');
 const utils = __importStar(require("./utils"));
 const types = __importStar(require("./types"));
@@ -36,6 +36,10 @@ const tough = __importStar(require("tough-cookie"));
 const request_1 = require("./request");
 const response_1 = require("./response");
 exports.default = { utils, types };
+function randomUserAgent() {
+    return utils.UserAgents.random();
+}
+exports.randomUserAgent = randomUserAgent;
 exports.throwResponseError = false;
 function create(uri, options, content) {
     options = Object.assign({}, options, { uri: uri });

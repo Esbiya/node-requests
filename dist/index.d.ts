@@ -8,6 +8,7 @@ declare const _default: {
     types: typeof types;
 };
 export default _default;
+export declare function randomUserAgent(): string;
 export declare var throwResponseError: boolean;
 export declare function create<T>(uri: string, options?: RequestOptions, content?: any): Request<T>;
 export declare function stream(uri: string, options?: RequestOptions, content?: any): Request<void>;
