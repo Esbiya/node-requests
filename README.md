@@ -198,8 +198,8 @@ console.log(resp.text)
 ```javascript
 async function downloadTest() {
     const session = requests.session();
-	const resp = await session.get("http://127.0.0.1:3000/api/v1/input-form-test");
-	console.log(resp.document())
+    const resp = await session.get("http://127.0.0.1:3000/api/v1/input-form-test");
+    console.log(resp.document())
 }
 ```
 
@@ -208,8 +208,8 @@ async function downloadTest() {
 ```javascript
 async function downloadTest() {
     const session = requests.session();
-	const resp = await session.get("http://127.0.0.1:3000/api/v1/input-form-test");
-	console.log(resp.inputForm('payForm'))
+    const resp = await session.get("http://127.0.0.1:3000/api/v1/input-form-test");
+    console.log(resp.inputForm('payForm'))
 }
 ```
 
