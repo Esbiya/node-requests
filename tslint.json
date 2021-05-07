@@ -1,0 +1,68 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+      "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+      "max-line-length": [
+        true,
+        140
+      ],
+      "ban-types": false,
+      "no-parameter-reassignment": false,
+      "no-empty-interface": true,
+      "no-inferrable-types": true,
+      "no-internal-module": true,
+      "no-namespace": true,
+      "no-reference": true,
+      "no-var-requires": false,
+      "ordered-imports": false,
+      "object-literal-sort-keys": false,
+      "semicolon": [
+        false,
+        "always"
+      ],
+      "quotemark": [
+        true,
+        "single",
+        "jsx-double"
+      ],
+      "no-arg": true,
+      "curly": false,
+      "only-arrow-functions": false,
+      "no-consecutive-blank-lines": false,
+      "space-before-function-paren": false,
+      "arrow-parens": [
+        true,
+        "ban-single-arg-parens"
+      ],
+      "no-shadowed-variable": false,
+      "no-trailing-whitespace": false,
+      "triple-equals": false,
+      "no-bitwise": false,
+      "no-console": false,
+      "variable-name": [
+        true,
+        "ban-keywords"
+      ],
+      "one-variable-per-declaration": false,
+      "max-classes-per-file": [
+        true,
+        5
+      ],
+      "no-unused-expression": [
+        true,
+        "allow-fast-null-checks"
+      ],
+      "no-empty": false,
+      "forin": false,
+      "no-debugger": false,
+      "typedef": [
+        true
+      ]
+    },
+    "rulesDirectory": [
+      "./src"
+    ]
+  }
