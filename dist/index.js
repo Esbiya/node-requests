@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaults = exports.delete = exports.json = exports.del = exports.head = exports.patch = exports.put = exports.post = exports.get = exports.session = exports.Session = exports.stream = exports.create = exports.throwResponseError = exports.randomUserAgent = void 0;
+exports.defaults = exports.json = exports.del = exports.head = exports.patch = exports.put = exports.post = exports.get = exports.session = exports.Session = exports.stream = exports.create = exports.throwResponseError = exports.randomUserAgent = void 0;
 var request = require('request');
 const utils = __importStar(require("./utils"));
 const types = __importStar(require("./types"));
@@ -158,6 +158,12 @@ class Session {
     }
     get cookies() {
         return this.jar.getCookies(this.uri);
+    }
+    setProxy(proxy) {
+        let proxyOpt = utils.parseProxy(proxy);
+        for (const [key, value] of Object.entries(proxyOpt)) {
+            this.initOption[key] = value;
+        }
     }
     processCookies(cookies, uri) {
         var _cookies;
@@ -305,7 +311,6 @@ function del(uri, options) {
     return __awaiter(this, void 0, void 0, function* () { return new Session(utils.parseOpts(options)).del(uri, options); });
 }
 exports.del = del;
-exports.delete = del;
 function json(uri, options) {
     return __awaiter(this, void 0, void 0, function* () { return new Session(utils.parseOpts(options)).json(uri, options); });
 }

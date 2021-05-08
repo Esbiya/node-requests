@@ -35,6 +35,7 @@ export declare class Session {
     delete(uri: string, options?: RequestOptions): Promise<Response<string>>;
     json<T>(uri: string, options?: RequestOptions): Promise<T>;
     get cookies(): _request.Cookie[];
+    setProxy(proxy: string): void;
     processCookies(cookies: string | object | Array<object> | Array<_request.Cookie>, uri?: string): Array<_request.Cookie>;
     setCookies(cookies: string | object | Array<_request.Cookie>, uri?: string): void;
     updateCookie(cookie: string | _request.Cookie, uri?: string): void;
@@ -55,5 +56,4 @@ export declare function patch(uri: string, options?: RequestOptions, content?: a
 export declare function head(uri: string, options?: RequestOptions): Promise<Response<void>>;
 export declare function del(uri: string, options?: RequestOptions): Promise<Response<string>>;
 export declare function json<T>(uri: string, options?: RequestOptions): Promise<T>;
-export { del as delete };
 export declare function defaults(options: RequestOptions): void;

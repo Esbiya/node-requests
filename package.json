@@ -1,6 +1,6 @@
 {
   "name": "@esbiya/requests",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a network requests lib",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -36,8 +36,9 @@
     "https-proxy-agent": "^2.2.1",
     "iconv-lite": "^0.6.2",
     "request": "^2.88.0",
-    "socks-proxy-agent": "^4.0.2",
-    "source-map-support": "^0.5.11",
+    "socks5-http-client": "^1.0.4",
+    "socks5-https-client": "^1.2.1",
+    "cheerio": "^1.0.0-rc.9",
     "typescript": "^4.2.4"
   },
   "devDependencies": {

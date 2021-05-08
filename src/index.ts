@@ -7,7 +7,7 @@ import * as tough from "tough-cookie";
 import { Request, RequestOptions, RequestError } from "./request";
 import { Response, ResponseError } from "./response";
 
-export default {utils, types};
+export default { utils, types };
 
 export function randomUserAgent(): string {
     return utils.UserAgents.random();
@@ -31,9 +31,9 @@ export function create<T>(uri: string, options?: RequestOptions, content?: any):
     !options.headers && (options.headers = { "User-Agent": utils.UserAgents.random() });
     options.cookies && (options.headers["Cookie"] = utils.parseCookies(options.cookies));
 
-    options.headers && 
-    (!options.headers.hasOwnProperty("User-Agent") && !options.headers.hasOwnProperty("user-agent")) && 
-    (options.headers["User-Agent"] = utils.UserAgents.random());
+    options.headers &&
+        (!options.headers.hasOwnProperty("User-Agent") && !options.headers.hasOwnProperty("user-agent")) &&
+        (options.headers["User-Agent"] = utils.UserAgents.random());
 
     var instance: Request<T>;
 
@@ -46,7 +46,7 @@ export function create<T>(uri: string, options?: RequestOptions, content?: any):
                 response.cost = () => {
                     return endTime - startTime;
                 };
-                if (message.statusCode < 400 || !throwEnabled) 
+                if (message.statusCode < 400 || !throwEnabled)
                     resolve(response);
                 else
                     reject(new ResponseError(response));
@@ -69,16 +69,16 @@ export function stream(uri: string, options?: RequestOptions, content?: any): Re
         options.jar = request.jar();
     if (content !== undefined)
         options.body = content;
-    
+
     options.encoding = null;
     options.params != null && (options.qs = options.params);
     !options.verify && (options.strictSSL = options.verify);
     !options.headers && (options.headers = { "User-Agent": utils.UserAgents.random() });
     options.cookies && (options.headers["Cookie"] = utils.parseCookies(options.cookies));
 
-    options.headers && 
-    (!options.headers.hasOwnProperty("User-Agent") && !options.headers.hasOwnProperty("user-agent")) && 
-    (() => { options.headers["User-Agent"] = utils.UserAgents.random() })();
+    options.headers &&
+        (!options.headers.hasOwnProperty("User-Agent") && !options.headers.hasOwnProperty("user-agent")) &&
+        (() => { options.headers["User-Agent"] = utils.UserAgents.random() })();
 
     var instance: Request<void> = request(options);
     instance.options = options;
@@ -119,7 +119,7 @@ export class Session {
         this.jar = (opt && opt.jar) ? opt.jar : request.jar();
         this.timeout = (opt && opt.timeout) ? opt.timeout : 3000;
         this.headers = (opt && opt.headers) ? opt.headers : null;
-        
+
         this.initOption = {
             jar: this.jar,
             headers: this.headers,
@@ -135,15 +135,22 @@ export class Session {
 
     async get(uri: string, options?: RequestOptions): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options, { method: 'GET' })).response; }
     async post(uri: string, options?: RequestOptions, content?: any): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options, { method: 'POST' }), content).response; }
-    async put(uri: string, options?: RequestOptions, content?: any): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options,  { method: 'PUT' }), content).response; }
-    async patch(uri: string, options?: RequestOptions, content?: any): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options,  { method: 'PATCH' }), content).response; }
-    async head(uri: string, options?: RequestOptions): Promise<Response<void>> { return await create<void>(uri, utils.processReqOpts(uri, this.initOption, options,  { method: 'HEAD' })).response; }
-    async del(uri: string, options?: RequestOptions): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options,  { method: 'DELETE' })).response; }
-    async delete(uri: string, options?: RequestOptions): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options,  { method: 'DELETE' })).response; }
-    async json<T>(uri: string, options?: RequestOptions): Promise<T> { return (await create<T>(uri, utils.processReqOpts(uri, this.initOption, options,  { json: true })).response).content; }
+    async put(uri: string, options?: RequestOptions, content?: any): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options, { method: 'PUT' }), content).response; }
+    async patch(uri: string, options?: RequestOptions, content?: any): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options, { method: 'PATCH' }), content).response; }
+    async head(uri: string, options?: RequestOptions): Promise<Response<void>> { return await create<void>(uri, utils.processReqOpts(uri, this.initOption, options, { method: 'HEAD' })).response; }
+    async del(uri: string, options?: RequestOptions): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options, { method: 'DELETE' })).response; }
+    async delete(uri: string, options?: RequestOptions): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options, { method: 'DELETE' })).response; }
+    async json<T>(uri: string, options?: RequestOptions): Promise<T> { return (await create<T>(uri, utils.processReqOpts(uri, this.initOption, options, { json: true })).response).content; }
 
     get cookies(): _request.Cookie[] {
         return this.jar.getCookies(this.uri);
+    }
+
+    setProxy(proxy: string) {
+        let proxyOpt = utils.parseProxy(proxy);
+        for (const [key, value] of Object.entries(proxyOpt)) {
+            this.initOption[key] = value;
+        }
     }
 
     processCookies(cookies: string | object | Array<object> | Array<_request.Cookie>, uri?: string): Array<_request.Cookie> {
@@ -266,7 +273,7 @@ export class Session {
         }
         this.cookies && this.cookies.forEach(cookie => {
             cookies.push(cookie.toJSON());
-        });        
+        });
         return cookies;
     }
 }
@@ -282,7 +289,6 @@ export async function patch(uri: string, options?: RequestOptions, content?: any
 export async function head(uri: string, options?: RequestOptions): Promise<Response<void>> { return new Session(utils.parseOpts(options)).head(uri, options) }
 export async function del(uri: string, options?: RequestOptions): Promise<Response<string>> { return new Session(utils.parseOpts(options)).del(uri, options) }
 export async function json<T>(uri: string, options?: RequestOptions): Promise<T> { return new Session(utils.parseOpts(options)).json(uri, options) }
-export { del as delete };
 
 export function defaults(options: RequestOptions): void {
     if (options.throwResponseError !== undefined)
