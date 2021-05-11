@@ -122,6 +122,7 @@ class Session {
         this.initOption = { jar: this.jar };
         opt && (() => {
             opt.headers && Object.assign(this.initOption, { headers: opt.headers });
+            opt.cookies && Object.assign(this.initOption, { cookies: opt.cookies });
             opt.timeout && Object.assign(this.initOption, { timeout: opt.timeout });
             opt.keepAlive && Object.assign(this.initOption, { keepAlive: true });
             opt.proxy && (() => {

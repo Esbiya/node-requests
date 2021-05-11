@@ -1,6 +1,7 @@
 import * as utils from "./utils";
 import * as types from "./types";
 import * as _request from "request";
+import * as tough from "tough-cookie";
 import { Request, RequestOptions } from "./request";
 import { Response } from "./response";
 declare const _default: {
@@ -15,6 +16,7 @@ export declare function stream(uri: string, options?: RequestOptions, content?: 
 export interface SessionOption {
     uri?: string;
     jar?: _request.CookieJar;
+    cookies?: string | object | Array<tough.Cookie>;
     proxy?: string;
     keepAlive?: boolean;
     timeout?: number;

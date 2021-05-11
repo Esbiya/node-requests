@@ -103,6 +103,7 @@ export function stream(uri: string, options?: RequestOptions, content?: any): Re
 export interface SessionOption {
     uri?: string;
     jar?: _request.CookieJar;
+    cookies?: string | object |Array<tough.Cookie>;
     proxy?: string;
     keepAlive?: boolean;
     timeout?: number;
@@ -121,6 +122,7 @@ export class Session {
         this.initOption = { jar: this.jar };
         opt && (() => {
             opt.headers && Object.assign(this.initOption, { headers: opt.headers });
+            opt.cookies && Object.assign(this.initOption, { cookies: opt.cookies });
             opt.timeout && Object.assign(this.initOption, { timeout: opt.timeout });
             opt.keepAlive && Object.assign(this.initOption, { keepAlive: true });
             opt.proxy && (() => {

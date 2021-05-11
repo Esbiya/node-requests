@@ -172,7 +172,9 @@ async function sessionProxyTest() {
 
 ### session 设置 cookies 示例
 
+
 ```javascript
+// 用法 1
 const session = requests.session();
 session.setCookies(`hello=world`, `http://www.baidu.com`);
 session.setCookies({
@@ -183,6 +185,19 @@ session.setCookies([{
     value: "world",
     domain: "www.baidu.com"
 }]);
+
+// 用法 2
+// const session = requests.session({
+//     cookies: `xxx=yyy`
+//     cookies: {
+//         'xxx': 'yyy'
+//     }
+//     cookies: [{
+//         key: 'xxx',
+//         value: 'yyy'
+//     }]
+// });
+
 const resp = await session.get("http://wwww.baidu.com/");
 console.log(resp.text)
 ```
