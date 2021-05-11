@@ -135,6 +135,18 @@ async function jsonTest() {
 }
 ```
 
+### post 二进制 示例
+
+```javascript
+async function jsonTest() {
+    let body = fs.readFileSync(`test.jpg`);
+    const resp = await requests.post("http://127.0.0.1:3000/api/v1/binary-test", {
+        body: body,
+    });
+    return resp.text === calculateFileHash("./test.jpg")
+}
+```
+
 ### post 多表单示例
 
 ```javascript

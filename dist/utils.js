@@ -89,7 +89,7 @@ function parseOpts(opts) {
 }
 exports.parseOpts = parseOpts;
 function processReqOpts(uri, initOpts, customOpts, methodOpts) {
-    let opts = Object.assign(customOpts, initOpts, methodOpts);
+    let opts = Object.assign(customOpts || {}, initOpts, methodOpts);
     (opts.proxy != null && opts.agentOptions != null) && delete opts.proxy;
     opts.agentOptions && (() => {
         uri.startsWith("https") ? opts.agentClass = httpsAgent : opts.agentClass = httpAgent;

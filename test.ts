@@ -1,22 +1,6 @@
 import * as requests from "./src/index"
 
 (async function () {
-    const session = requests.session({
-        // proxy: "http://127.0.0.1:8888",
-        keepAlive: true,
-        // cookies: `xxx=yyy`
-        // cookies: {
-        //     'xxx': 'yyy'
-        // }
-        cookies: [{
-            key: 'xxx',
-            value: 'yyy'
-        }]
-    });
-
-    let headers = {
-        "kkk": "vvv",
-    }
-    let resp = await session.get('http://127.0.0.1:3000/api/v1/cookie-test', { headers: headers });
+    const resp = await requests.get(`http://tunnel-api.apeyun.com/d?id=2021031900230401052&secret=SsdmW2MlXXUE9rLs&limit=1&format=txt&auth_mode=hand&min=1`);
     console.log(resp.text);
 })();
