@@ -98,23 +98,23 @@ export class Response<T> {
         return 0;
     }
 
-    cookieString(): string {
-        return this.cookies ? this.cookies.map(cookie => {
+    async cookieString(): Promise<string> {
+        return this.cookies ? (await this.cookies()).map(cookie => {
             return cookie.cookieString();
         }).join("; ") : "";
     }
 
-    cookieMap(): object {
+    async cookieMap(): Promise<object> {
         let cookies = {};
-        this.cookies && this.cookies.forEach(cookie => {
+        this.cookies && (await this.cookies()).forEach(cookie => {
             cookies[cookie.key] = cookie.value;
         });
         return cookies;
     }
 
-    cookieArrayMap(): Array<object> {
+    async cookieArrayMap(): Promise<Array<object>> {
         let cookies = [];
-        this.cookies && this.cookies.forEach(cookie => {
+        this.cookies && (await this.cookies()).forEach(cookie => {
             cookies.push(cookie.toJSON());
         });
         return cookies;
@@ -162,10 +162,10 @@ export class Response<T> {
             return (<any>this.body).length;
     }
     get contentType(): string { return utils.parseContentType(<string>this.message.headers['content-type']).contentType; }
-    get cookies(): tough.Cookie[] {
+    async cookies(): Promise<tough.Cookie[]> {
         if (typeof this.request.options.jar === 'object') {
             var jar = <tough.CookieJar>this.request.options.jar;
-            return jar.getCookiesSync(this.request.options.uri);
+            return jar.getCookies(this.request.options.uri);
         }
     }
     get headers(): types.Headers { return this.message.headers; }

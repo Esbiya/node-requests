@@ -255,10 +255,10 @@ async function downloadTest() {
 |   resp.setEncoding('gbk')  |  设置响应编码格式  | 
 |   resp.saveFile('test.jpg')  |   响应存入本地文件   |
 |   resp.location()  |   获取重定向地址   |
-|   resp.cookies  |   获取响应 cookie, touch.Cookie 数组   |
-|   resp.cookieString()  |   获取响应 cookie 字符串, "111=222; 333=444"   |
-|   resp.cookieMap()  |   获取响应 cookie 标准 json 格式, {"111": "222"}   |
-|   resp.cookieArrayMap()  |   获取响应标准 cookie 格式数组, [{key: "111", value: "222", domain: "xxx"}]   |
+|   await resp.cookies()  |   获取响应 cookie, touch.Cookie 数组   |
+|   await resp.cookieString()  |   获取响应 cookie 字符串, "111=222; 333=444"   |
+|   await resp.cookieMap()  |   获取响应 cookie 标准 json 格式, {"111": "222"}   |
+|   await resp.cookieArrayMap()  |   获取响应标准 cookie 格式数组, [{key: "111", value: "222", domain: "xxx"}]   |
 |   resp.content  |   响应内容   |
 |   resp.charset  |   响应字符编码   |
 |   resp.contentType  |   响应类型   |

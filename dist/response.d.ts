@@ -16,9 +16,9 @@ export declare class Response<T> {
     saveFile(fileName: string, mode?: 0 | 1): void;
     location(): string;
     cost(): number;
-    cookieString(): string;
-    cookieMap(): object;
-    cookieArrayMap(): Array<object>;
+    cookieString(): Promise<string>;
+    cookieMap(): Promise<object>;
+    cookieArrayMap(): Promise<Array<object>>;
     document(): cheerio.Root;
     inputForm(id: string): object;
     parseJSON(): object;
@@ -28,7 +28,7 @@ export declare class Response<T> {
     get content(): T;
     get contentLength(): number;
     get contentType(): string;
-    get cookies(): tough.Cookie[];
+    cookies(): Promise<tough.Cookie[]>;
     get headers(): types.Headers;
     get httpVersion(): string;
     get lastModified(): Date;

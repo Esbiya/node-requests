@@ -18,6 +18,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ResponseError = exports.Response = void 0;
 const fs = __importStar(require("fs"));
@@ -88,23 +97,29 @@ class Response {
         return 0;
     }
     cookieString() {
-        return this.cookies ? this.cookies.map(cookie => {
-            return cookie.cookieString();
-        }).join("; ") : "";
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.cookies ? (yield this.cookies()).map(cookie => {
+                return cookie.cookieString();
+            }).join("; ") : "";
+        });
     }
     cookieMap() {
-        let cookies = {};
-        this.cookies && this.cookies.forEach(cookie => {
-            cookies[cookie.key] = cookie.value;
+        return __awaiter(this, void 0, void 0, function* () {
+            let cookies = {};
+            this.cookies && (yield this.cookies()).forEach(cookie => {
+                cookies[cookie.key] = cookie.value;
+            });
+            return cookies;
         });
-        return cookies;
     }
     cookieArrayMap() {
-        let cookies = [];
-        this.cookies && this.cookies.forEach(cookie => {
-            cookies.push(cookie.toJSON());
+        return __awaiter(this, void 0, void 0, function* () {
+            let cookies = [];
+            this.cookies && (yield this.cookies()).forEach(cookie => {
+                cookies.push(cookie.toJSON());
+            });
+            return cookies;
         });
-        return cookies;
     }
     document() {
         return cheerio.load(this.text);
@@ -139,11 +154,13 @@ class Response {
             return this.body.length;
     }
     get contentType() { return utils.parseContentType(this.message.headers['content-type']).contentType; }
-    get cookies() {
-        if (typeof this.request.options.jar === 'object') {
-            var jar = this.request.options.jar;
-            return jar.getCookiesSync(this.request.options.uri);
-        }
+    cookies() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (typeof this.request.options.jar === 'object') {
+                var jar = this.request.options.jar;
+                return jar.getCookies(this.request.options.uri);
+            }
+        });
     }
     get headers() { return this.message.headers; }
     get httpVersion() { return this.message.httpVersion; }
