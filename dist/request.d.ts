@@ -76,10 +76,12 @@ export interface RequestOptions {
     followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
     followAllRedirects?: boolean;
     maxRedirects?: number;
+    keepAlive?: boolean;
     encoding?: string | null;
     pool?: any;
     timeout?: number;
     proxy?: any;
+    withoutProxy?: boolean;
     strictSSL?: boolean;
     verify?: boolean;
     rejectUnauthorized?: boolean;

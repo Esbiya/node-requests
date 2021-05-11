@@ -1,8 +1,8 @@
 var httpAgent = require('socks5-http-client/lib/Agent');
 var httpsAgent = require('socks5-https-client/lib/Agent');
 import * as tough from "tough-cookie";
-import { RequestOptions } from "./request"
-import { SessionOption } from "./index"
+import { RequestOptions } from "./request";
+import { SessionOption } from "./index";
 
 export function parseKeyValue(text: string): { key: string; value: string } {
     var i = text.indexOf('=');
@@ -87,11 +87,12 @@ export function parseOpts(opts: RequestOptions): SessionOption {
 }
 
 export function processReqOpts(uri: string, initOpts: object, customOpts: RequestOptions, methodOpts: object) {
-    let opts = Object.assign(initOpts, customOpts, methodOpts);
+    let opts = Object.assign(customOpts, initOpts, methodOpts);
     (opts.proxy != null && opts.agentOptions != null) && delete opts.proxy;
     opts.agentOptions && (() => {
         uri.startsWith("https") ? opts.agentClass = httpsAgent : opts.agentClass = httpAgent;
     })();
+    opts.withoutProxy && delete opts.proxy && delete opts.agentClass && delete opts.agentOptions;
     return opts;
 }
 

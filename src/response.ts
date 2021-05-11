@@ -138,6 +138,11 @@ export class Response<T> {
         return data;
     }
 
+    parseJSON(): object {
+        let ret = this.text.match(/JSON.parse\('.*?'\);/)[0].replace("JSON.parse('", '').replace("');", '').replace(/\\/g, '');
+        return JSON.parse(unescape(ret));
+    }
+
     get bytes(): Buffer {
         return this.buffer
     }

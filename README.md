@@ -207,6 +207,15 @@ async function downloadTest() {
 }
 ```
 
+### 自动获取响应中的 ```<script>var data = JSON.parse('{\"error\":\"\"}'); </script>``` 并转化为标准 json 格式
+
+```javascript
+async function downloadTest() {
+    const session = requests.session();
+    const resp = await session.get("http://127.0.0.1:3000/api/v1/parse-json-test");
+    console.log(resp.parseJSON())
+}
+```
 ### 响应接口说明
 
 |   接口    |   说明  |  

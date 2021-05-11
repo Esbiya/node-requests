@@ -16,6 +16,7 @@ export interface SessionOption {
     uri?: string;
     jar?: _request.CookieJar;
     proxy?: string;
+    keepAlive?: boolean;
     timeout?: number;
     headers?: types.Headers;
 }
@@ -41,8 +42,8 @@ export declare class Session {
     updateCookie(cookie: string | _request.Cookie, uri?: string): void;
     updateCookies(cookies: string | object | Array<_request.Cookie>, uri?: string): void;
     getCookies(uri?: string): _request.Cookie[];
-    getCookieStringSync(uri?: string): string;
-    getCookieMapSync(uri?: string): object;
+    getCookieString(uri?: string): string;
+    getCookieMap(uri?: string): object;
     getCookieArrayMap(uri?: string): Array<object>;
     cookiesString(uri?: string): string;
     cookiesMap(uri?: string): object;

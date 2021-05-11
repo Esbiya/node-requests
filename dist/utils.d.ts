@@ -12,7 +12,7 @@ export declare function parseContentType(text: string): {
 export declare function parseProxy(proxy: string): object;
 export declare function parseCookies(cookies: string | object | Array<tough.Cookie>): string;
 export declare function parseOpts(opts: RequestOptions): SessionOption;
-export declare function processReqOpts(uri: string, initOpts: object, customOpts: RequestOptions, methodOpts: object): object & RequestOptions;
+export declare function processReqOpts(uri: string, initOpts: object, customOpts: RequestOptions, methodOpts: object): RequestOptions & object;
 export declare class UserAgents {
     private static userAgents;
     private static randomUserAgentInArr;

@@ -42,7 +42,7 @@ function randomUserAgent() {
 exports.randomUserAgent = randomUserAgent;
 exports.throwResponseError = false;
 function create(uri, options, content) {
-    options = Object.assign({}, options, { uri: uri });
+    options = Object.assign(options, { uri: uri });
     if (options.jar === true)
         options.jar = request.jar();
     if (content !== undefined)
@@ -55,9 +55,10 @@ function create(uri, options, content) {
     !options.verify && (options.strictSSL = options.verify);
     !options.headers && (options.headers = { "User-Agent": utils.UserAgents.random() });
     options.cookies && (options.headers["Cookie"] = utils.parseCookies(options.cookies));
-    options.headers &&
-        (!options.headers.hasOwnProperty("User-Agent") && !options.headers.hasOwnProperty("user-agent")) &&
-        (options.headers["User-Agent"] = utils.UserAgents.random());
+    options.keepAlive && (options.headers["Connection"] = "keep-alive");
+    !options.headers.hasOwnProperty("User-Agent")
+        && !options.headers.hasOwnProperty("user-agent")
+        && (options.headers["User-Agent"] = utils.UserAgents.random());
     var instance;
     var startTime = new Date().getTime();
     var promise = new Promise((resolve, reject) => {
@@ -84,7 +85,7 @@ function create(uri, options, content) {
 }
 exports.create = create;
 function stream(uri, options, content) {
-    options = Object.assign({}, options, { uri: uri });
+    options = Object.assign(options, { uri: uri });
     if (options.jar === true)
         options.jar = request.jar();
     if (content !== undefined)
@@ -118,18 +119,17 @@ class Session {
     constructor(opt) {
         this.uri = (opt && opt.uri) ? opt.uri : "";
         this.jar = (opt && opt.jar) ? opt.jar : request.jar();
-        this.timeout = (opt && opt.timeout) ? opt.timeout : 3000;
-        this.headers = (opt && opt.headers) ? opt.headers : null;
-        this.initOption = {
-            jar: this.jar,
-            headers: this.headers,
-            timeout: this.timeout,
-        };
-        (opt && opt.proxy) && (() => {
-            let proxyOpt = utils.parseProxy(opt.proxy);
-            for (const [key, value] of Object.entries(proxyOpt)) {
-                this.initOption[key] = value;
-            }
+        this.initOption = { jar: this.jar };
+        opt && (() => {
+            opt.headers && Object.assign(this.initOption, { headers: opt.headers });
+            opt.timeout && Object.assign(this.initOption, { timeout: opt.timeout });
+            opt.keepAlive && Object.assign(this.initOption, { keepAlive: true });
+            opt.proxy && (() => {
+                let proxyOpt = utils.parseProxy(opt.proxy);
+                for (const [key, value] of Object.entries(proxyOpt)) {
+                    this.initOption[key] = value;
+                }
+            })();
         })();
     }
     get(uri, options) {
@@ -221,13 +221,13 @@ class Session {
         uri = uri ? uri : this.uri;
         return this.jar.getCookies(uri);
     }
-    getCookieStringSync(uri) {
+    getCookieString(uri) {
         let cookies = this.getCookies(uri);
         return cookies ? cookies.map(cookie => {
             return cookie.cookieString();
         }).join("; ") : "";
     }
-    getCookieMapSync(uri) {
+    getCookieMap(uri) {
         let cookies = this.getCookies(uri), _cookies = {};
         cookies && cookies.forEach(cookie => {
             _cookies[cookie.key] = cookie.value;

@@ -118,6 +118,10 @@ class Response {
         });
         return data;
     }
+    parseJSON() {
+        let ret = this.text.match(/JSON.parse\('.*?'\);/)[0].replace("JSON.parse('", '').replace("');", '').replace(/\\/g, '');
+        return JSON.parse(unescape(ret));
+    }
     get bytes() {
         return this.buffer;
     }

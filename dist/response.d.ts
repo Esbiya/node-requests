@@ -21,6 +21,7 @@ export declare class Response<T> {
     cookieArrayMap(): Array<object>;
     document(): cheerio.Root;
     inputForm(id: string): object;
+    parseJSON(): object;
     get bytes(): Buffer;
     get text(): string;
     get charset(): string;
