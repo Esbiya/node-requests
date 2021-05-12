@@ -1,6 +1,7 @@
 import * as requests from "./src/index"
 
 (async function () {
-    const resp = await requests.get(`http://tunnel-api.apeyun.com/d?id=2021031900230401052&secret=SsdmW2MlXXUE9rLs&limit=1&format=txt&auth_mode=hand&min=1`);
+    const session = requests.session({ proxy: 'http://127.0.0.1:8888' })
+    const resp = await session.get(`https://www.baidu.com`);
     console.log(resp.text);
 })();

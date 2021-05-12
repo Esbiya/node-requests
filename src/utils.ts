@@ -93,6 +93,7 @@ export function processReqOpts(uri: string, initOpts: object, customOpts: Reques
         uri.startsWith("https") ? opts.agentClass = httpsAgent : opts.agentClass = httpAgent;
     })();
     opts.withoutProxy && delete opts.proxy && delete opts.agentClass && delete opts.agentOptions;
+    (opts.proxy != null || opts.agentOptions != null) && (opts.verify = false);
     return opts;
 }
 
