@@ -130,12 +130,17 @@ export class Response<T> {
 
     inputForm(name: string): object {
         let data = {}, $ = this.document();
-        $(`form[name=${name}]`).find('input').map((index: number, element: cheerio.Element) => {
+        let form = $(`form[name=${name}]`);
+        let action = form.attr(`action`);
+        form.find('input').map((index: number, element: cheerio.Element) => {
             let name = $(element).attr('name'), value = $(element).attr('value');
             name && value && (data[name] = value);
             return null;
         });
-        return data;
+        return {
+            url: action,
+            form: data,
+        }
     }
 
     parseJSON(): object {
