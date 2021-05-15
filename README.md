@@ -250,11 +250,11 @@ async function downloadTest() {
 |   resp.bytes  |   响应字节流   | 
 |   resp.text  |   响应文本   | 
 |   resp.json()  |   获取标准 json 格式响应   | 
-|   resp.callbackJSON()  |   自动处理 callback({"1": "2"}) 类型数据为标准 json 格式   | 
+|   resp.callbackJSON()  |   自动处理 callback({"1": "2"}) 类型数据为标准 json 格式, 可指定 callback 名称, 如 resp.callbakcJSON('cb') 解析 ' cb({})'   | 
 |   resp.cost()  |   请求耗时: 毫秒(ms)   | 
 |   resp.setEncoding('gbk')  |  设置响应编码格式  | 
 |   resp.saveFile('test.jpg')  |   响应存入本地文件   |
-|   resp.location()  |   获取重定向地址   |
+|   resp.location()  |   获取重定向地址, 参数: load: boolean, true 表示获取 window.location.href=`` 类型的跳转  url, false 表示获取 302 跳转地址, 默认 false   |
 |   await resp.cookies()  |   获取响应 cookie, touch.Cookie 数组   |
 |   await resp.cookieString()  |   获取响应 cookie 字符串, "111=222; 333=444"   |
 |   await resp.cookieMap()  |   获取响应 cookie 标准 json 格式, {"111": "222"}   |

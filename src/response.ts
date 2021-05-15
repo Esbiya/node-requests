@@ -62,18 +62,14 @@ export class Response<T> {
      * @returns 
      */
     callbackJSON(cb?: string): object {
-        if (cb) {
+        try {
+            cb = cb ? cb : this.text.match(/^(?:\s*)(\w+)/)[1];
             return eval(`var ${cb} = new Function('return arguments[0]'); ${this.text}`);
-        } else {
-            try {
-                let ret = this.text.match(/{.*}/);
-                return JSON.parse(ret[0]);
-            } catch(err) {
-                return {
-                    errorMsg: err.message,
-                    body: this.body
-                } 
-            }
+        } catch(err) {
+            return {
+                errorMsg: err.message,
+                body: this.body
+            } 
         }
     }
 
@@ -86,7 +82,10 @@ export class Response<T> {
      * 获取重定向 url
      * @returns 
      */
-    location(): string {
+    location(load: boolean): string {
+        if (load) {
+            return this.text.match(/window.location.href\s*=\s*["']([^"']+)/)[1]
+        }
         return this.headers["Location"] || this.headers["location"]
     }
 

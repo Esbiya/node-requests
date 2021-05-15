@@ -14,13 +14,13 @@ export declare class Response<T> {
     json(): object;
     callbackJSON(cb?: string): object;
     saveFile(fileName: string, mode?: 0 | 1): void;
-    location(): string;
+    location(load: boolean): string;
     cost(): number;
     cookieString(): Promise<string>;
     cookieMap(): Promise<object>;
     cookieArrayMap(): Promise<Array<object>>;
     document(): cheerio.Root;
-    inputForm(id: string): object;
+    inputForm(name: string): object;
     parseJSON(): object;
     get bytes(): Buffer;
     get text(): string;

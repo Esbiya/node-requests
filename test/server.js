@@ -1255,4 +1255,8 @@ app.get('/api/v1/parse-json-test', function (req, res) {
     `);
 })
 
+app.get('/api/v1/location-test', (req, res) => {
+  res.send(`<!DOCTYPE html><html><head>	<meta charset="UTF-8"> <title>支付中，请稍候...</title></head>	<script>	window.onload = function() {	window.location.href ='https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx151447097776295b8fd854a250f6890000&package=4235184878&redirect_url=https%3A%2F%2Fwappay.189.cn%2Fpay%2FtoPayQuery.do%3FboId%3Da4af5ac7f91d4d8e86096ca8e36793bd'	}	</script>	</body> 	</html>`)
+})
+
 app.listen(port, () => console.log(`Example app listening on port port!`))

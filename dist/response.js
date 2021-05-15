@@ -70,27 +70,25 @@ class Response {
         }
     }
     callbackJSON(cb) {
-        if (cb) {
+        try {
+            cb = cb ? cb : this.text.match(/^(?:\s*)(\w+)/)[1];
             return eval(`var ${cb} = new Function('return arguments[0]'); ${this.text}`);
         }
-        else {
-            try {
-                let ret = this.text.match(/{.*}/);
-                return JSON.parse(ret[0]);
-            }
-            catch (err) {
-                return {
-                    errorMsg: err.message,
-                    body: this.body
-                };
-            }
+        catch (err) {
+            return {
+                errorMsg: err.message,
+                body: this.body
+            };
         }
     }
     saveFile(fileName, mode) {
         let data = mode === 1 ? this.text : this.buffer;
         return fs.writeFileSync(fileName, data);
     }
-    location() {
+    location(load) {
+        if (load) {
+            return this.text.match(/window.location.href\s*=\s*["']([^"']+)/)[1];
+        }
         return this.headers["Location"] || this.headers["location"];
     }
     cost() {
@@ -124,14 +122,19 @@ class Response {
     document() {
         return cheerio.load(this.text);
     }
-    inputForm(id) {
+    inputForm(name) {
         let data = {}, $ = this.document();
-        $(`#${id}`).find('input').map((index, element) => {
+        let form = $(`form[name=${name}]`);
+        let action = form.attr(`action`);
+        form.find('input').map((index, element) => {
             let name = $(element).attr('name'), value = $(element).attr('value');
             name && value && (data[name] = value);
             return null;
         });
-        return data;
+        return {
+            url: action,
+            form: data,
+        };
     }
     parseJSON() {
         let ret = this.text.match(/JSON.parse\('.*?'\);/)[0].replace("JSON.parse('", '').replace("');", '').replace(/\\/g, '');
