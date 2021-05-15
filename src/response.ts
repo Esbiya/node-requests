@@ -128,9 +128,9 @@ export class Response<T> {
         return cheerio.load(this.text);
     }
 
-    inputForm(id: string): object {
+    inputForm(name: string): object {
         let data = {}, $ = this.document();
-        $(`#${id}`).find('input').map((index: number, element: cheerio.Element) => {
+        $(`form[name=${name}]`).find('input').map((index: number, element: cheerio.Element) => {
             let name = $(element).attr('name'), value = $(element).attr('value');
             name && value && (data[name] = value);
             return null;
