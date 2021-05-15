@@ -103,11 +103,12 @@ export function stream(uri: string, options?: RequestOptions, content?: any): Re
 export interface SessionOption {
     uri?: string;
     jar?: _request.CookieJar;
-    cookies?: string | object |Array<tough.Cookie>;
+    cookies?: string | object | Array<tough.Cookie>;
     proxy?: string;
     keepAlive?: boolean;
     timeout?: number;
     headers?: types.Headers;
+    charles?: boolean;
 }
 
 export class Session {
@@ -125,6 +126,7 @@ export class Session {
             opt.cookies && Object.assign(this.initOption, { cookies: opt.cookies });
             opt.timeout && Object.assign(this.initOption, { timeout: opt.timeout });
             opt.keepAlive && Object.assign(this.initOption, { keepAlive: true });
+            opt.charles && Object.assign(this.initOption, { proxy: `http://127.0.0.1:8888` });
             opt.proxy && (() => {
                 let proxyOpt = utils.parseProxy(opt.proxy);
                 for (const [key, value] of Object.entries(proxyOpt)) {
@@ -132,7 +134,6 @@ export class Session {
                 }
             })();
         })();
-
     }
 
     async get(uri: string, options?: RequestOptions): Promise<Response<string>> { return await create<string>(uri, utils.processReqOpts(uri, this.initOption, options, { method: 'GET' })).response; }

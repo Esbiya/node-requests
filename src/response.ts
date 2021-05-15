@@ -82,10 +82,11 @@ export class Response<T> {
      * 获取重定向 url
      * @returns 
      */
-    location(load: boolean): string {
+    location(load: boolean = false): string {
         if (load) {
             return this.text.match(/window.location.href\s*=\s*["']([^"']+)/)[1]
         }
+        console.log(this.headers);
         return this.headers["Location"] || this.headers["location"]
     }
 
