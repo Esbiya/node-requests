@@ -125,6 +125,7 @@ class Session {
             opt.cookies && Object.assign(this.initOption, { cookies: opt.cookies });
             opt.timeout && Object.assign(this.initOption, { timeout: opt.timeout });
             opt.keepAlive && Object.assign(this.initOption, { keepAlive: true });
+            opt.charles && Object.assign(this.initOption, { proxy: `http://127.0.0.1:8888` });
             opt.proxy && (() => {
                 let proxyOpt = utils.parseProxy(opt.proxy);
                 for (const [key, value] of Object.entries(proxyOpt)) {

@@ -86,7 +86,6 @@ export class Response<T> {
         if (load) {
             return this.text.match(/window.location.href\s*=\s*["']([^"']+)/)[1]
         }
-        console.log(this.headers);
         return this.headers["Location"] || this.headers["location"]
     }
 
@@ -124,7 +123,7 @@ export class Response<T> {
      * html 解析
      * @returns html css 解析对象
      */
-    document(): cheerio.Root {
+    document(): cheerio.CheerioAPI {
         return cheerio.load(this.text);
     }
 

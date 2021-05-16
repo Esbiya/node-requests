@@ -21,6 +21,7 @@ export interface SessionOption {
     keepAlive?: boolean;
     timeout?: number;
     headers?: types.Headers;
+    charles?: boolean;
 }
 export declare class Session {
     uri?: string;

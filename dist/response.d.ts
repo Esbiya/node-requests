@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import * as http from 'http';
 import * as tough from "tough-cookie";
+import * as cheerio from "cheerio";
 import { Url } from 'url';
 import { Request } from "./request";
 import * as types from "./types";
@@ -14,12 +15,12 @@ export declare class Response<T> {
     json(): object;
     callbackJSON(cb?: string): object;
     saveFile(fileName: string, mode?: 0 | 1): void;
-    location(load: boolean): string;
+    location(load?: boolean): string;
     cost(): number;
     cookieString(): Promise<string>;
     cookieMap(): Promise<object>;
     cookieArrayMap(): Promise<Array<object>>;
-    document(): cheerio.Root;
+    document(): cheerio.CheerioAPI;
     inputForm(name: string): object;
     parseJSON(): object;
     get bytes(): Buffer;

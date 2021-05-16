@@ -85,7 +85,7 @@ class Response {
         let data = mode === 1 ? this.text : this.buffer;
         return fs.writeFileSync(fileName, data);
     }
-    location(load) {
+    location(load = false) {
         if (load) {
             return this.text.match(/window.location.href\s*=\s*["']([^"']+)/)[1];
         }

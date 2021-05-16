@@ -1,6 +1,6 @@
 {
   "name": "@esbiya/requests",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "a network requests lib",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,20 +32,20 @@
   "author": "esbiya",
   "license": "MIT",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.9",
     "http-proxy-agent": "^2.1.0",
     "https-proxy-agent": "^2.2.1",
     "iconv-lite": "^0.6.2",
     "request": "^2.88.0",
     "socks5-http-client": "^1.0.4",
     "socks5-https-client": "^1.2.1",
-    "cheerio": "^1.0.0-rc.9",
     "typescript": "^4.2.4"
   },
   "devDependencies": {
-    "@types/node": "^15.0.2",
-    "@types/request": "^2.48.1",
-    "@types/tough-cookie": "^4.0.0",
     "@types/cheerio": "^0.22.28",
-    "@types/iconv-lite": "^0.0.1"
+    "@types/iconv-lite": "^0.0.1",
+    "@types/node": "^15.3.0",
+    "@types/request": "^2.48.1",
+    "@types/tough-cookie": "^4.0.0"
   }
 }
