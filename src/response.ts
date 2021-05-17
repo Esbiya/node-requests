@@ -63,13 +63,17 @@ export class Response<T> {
      */
     callbackJSON(cb?: string): object {
         try {
-            cb = cb ? cb : this.text.match(/^(?:\s*)(\w+)/)[1];
-            return eval(`var ${cb} = new Function('return arguments[0]'); ${this.text}`);
+            return JSON.parse(this.text.match(/{.*}/)[0])
         } catch(err) {
-            return {
-                errorMsg: err.message,
-                body: this.body
-            } 
+            try {
+                cb = cb ? cb : this.text.match(/^(?:\s*)(\w+)/)[1];
+                return eval(`var ${cb} = new Function('return arguments[0]'); ${this.text}`);
+            } catch(err) {
+                return {
+                    errorMsg: err.message,
+                    body: this.body
+                } 
+            }
         }
     }
 
