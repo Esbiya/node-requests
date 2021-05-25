@@ -279,6 +279,10 @@ export class Session {
         });
         return cookies;
     }
+
+    copy(): Session {
+        return new Session(Object.assign({ uri: this.uri }, this.initOption))
+    }
 }
 
 export function session(opt?: SessionOption): Session {

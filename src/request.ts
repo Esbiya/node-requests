@@ -17,7 +17,7 @@ export interface Request<T> extends _stream.Stream {
     setHeader(name: string, value: string, clobber?: boolean): this;
     setHeaders(headers: Headers): this;
     qs(q: Object, clobber?: boolean): this;
-    form(): any; //FormData.FormData;
+    form(): any; // FormData.FormData;
     form(form: any): this;
     multipart(multipart: types.RequestPart[]): this;
     json(val: any): this;

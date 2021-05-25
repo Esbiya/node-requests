@@ -151,6 +151,10 @@ export class Response<T> {
         return JSON.parse(unescape(ret));
     }
 
+    get size(): number {
+        return this.buffer.length
+    }
+
     get bytes(): Buffer {
         return this.buffer
     }

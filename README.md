@@ -214,6 +214,18 @@ const resp = await session.get("http://wwww.baidu.com/");
 console.log(resp.text)
 ```
 
+### session 设置代理示例（使用代理默认忽略证书验证）
+
+```javascript
+const session = requests.session({ proxy: `http://127.0.0.1:8888` })
+```
+
+### session 设置 keepAalive
+
+```javascript
+const session = requests.session({ keepAlive: true })
+```
+
 ### 获取响应 html 解析对象(使用 cheerio, 具体用法请查看 cheerio 文档: https://github.com/cheeriojs/cheerio)
 
 ```javascript
